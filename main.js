@@ -1,38 +1,75 @@
-// Modules
 const { app, BrowserWindow } = require('electron')
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
-let mainWindow;
+// Multiple Windows
+let mainWindow, secondWindow;
 
-// Create a new BrowserWindow when `app` is ready
 function createWindow() {
 
   mainWindow = new BrowserWindow({
     width: 1000, height: 800,
-    webPreferences: { nodeIntegration: true }
+    webPreferences: { nodeIntegration: true },
+
+    // To hide the window initially
+    show: false
+  })
+
+  secondWindow = new BrowserWindow({
+    width: 600, height: 300,
+    webPreferences: { nodeIntegration: true },
+
+    // To create a Child Window
+    parent: mainWindow,
+
+    // To attach the child Window to the parent Window
+    model: true,
+
+    // To create frameless window
+    frame: false
   })
 
   // Load index.html into the new BrowserWindow
   mainWindow.loadFile('index.html')
+  secondWindow.loadURL('https://www.google.co.in/')
 
   // Open DevTools - Remove for PRODUCTION!
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
+
+  // Graceful loading
+  mainWindow.once('ready-to-show', mainWindow.show);
 
   // Listen for window being closed
   mainWindow.on('closed', () => {
     mainWindow = null
   })
+  secondWindow.on('closed', () => {
+    secondWindow = null
+  })
+  
 }
 
-// Electron `app` is ready
+// App Before Quit
+app.on('before-quit', () => {
+  console.log("Before Quitting");
+})
+
+// Window on Blur
+app.on('browser-window-blur', () => {
+  console.log("Browser window Unfocused");
+})
+
+// Window on Focus
+app.on('browser-window-focus', () => {
+  console.log("Browser window focused");
+})
+
+// App on Ready
 app.on('ready', () => {
 
+  // Various common locations for storing data
   console.log(app.getPath('desktop'))
-  console.log(app.getPath('music'))
-  console.log(app.getPath('temp'))
   console.log(app.getPath('userData'))
 
+  // Creating Window
   createWindow()
 })
 
