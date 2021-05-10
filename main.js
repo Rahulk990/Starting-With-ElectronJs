@@ -1,4 +1,4 @@
-const { app, BrowserWindow, dialog } = require('electron')
+const { app, BrowserWindow, dialog, globalShortcut, Menu, MenuItem } = require('electron')
 
 let mainWindow;
 
@@ -11,6 +11,7 @@ function createWindow() {
   })
   mainWindow.loadFile('index.html')
   mainWindow.on('closed', () => { mainWindow = null })
+
 
   
 }
