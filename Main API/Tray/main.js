@@ -1,6 +1,22 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, Tray } = require('electron')
 
 let mainWindow;
+
+// Creating and Configuring Tray Instance 
+function createTray() {
+
+  tray = new Tray('trayTemplate@2x.png')
+  tray.setToolTip('Tray details')
+
+  tray.on('click', e => {
+    if (e.shiftKey) {
+      app.quit()
+    } else {
+      mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show()
+    }
+  })
+
+}
 
 function createWindow() {
 
@@ -12,6 +28,8 @@ function createWindow() {
   mainWindow.loadFile('index.html')
   mainWindow.on('closed', () => { mainWindow = null })
 
+  // Creating Tray Instance
+  createTray();
 
 }
 
