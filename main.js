@@ -1,4 +1,4 @@
-const { app, BrowserWindow, session } = require('electron')
+const { app, BrowserWindow, dialog } = require('electron')
 
 let mainWindow;
 
@@ -10,11 +10,9 @@ function createWindow() {
     webPreferences: { nodeIntegration: true }
   })
   mainWindow.loadFile('index.html')
-  mainWindow.webContents.openDevTools();
-  mainWindow.on('closed', () => {mainWindow = null})
-  
-  
+  mainWindow.on('closed', () => { mainWindow = null })
 
+  
 }
 
 app.on('ready', () => {
