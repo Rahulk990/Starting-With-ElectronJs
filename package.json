@@ -1,0 +1,15 @@
+{
+  "name": "electron-tutorial",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "watch": "nodemon --exec \"electron .\"",
+    "reset": "git reset --hard"
+  },
+  "devDependencies": {
+    "electron": "^4.0.1",
+    "nodemon": "^1.18.9"
+  },
+  "dependencies": {}
+}
