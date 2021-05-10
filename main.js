@@ -1,4 +1,4 @@
-const { app, BrowserWindow, dialog, globalShortcut, Menu, MenuItem } = require('electron')
+const { app, BrowserWindow} = require('electron')
 
 let mainWindow;
 
@@ -13,7 +13,7 @@ function createWindow() {
   mainWindow.on('closed', () => { mainWindow = null })
 
 
-  
+
 }
 
 app.on('ready', () => {
